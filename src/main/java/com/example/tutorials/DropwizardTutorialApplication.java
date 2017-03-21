@@ -1,5 +1,6 @@
 package com.example.tutorials;
 
+import com.example.tutorials.health.TemplateHealthCheck;
 import com.example.tutorials.resources.DropwizardTutorialResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -28,6 +29,9 @@ public class DropwizardTutorialApplication extends Application<DropwizardTutoria
                 configuration.getTemplate(),
                 configuration.getDefaultName()
         );
+        final TemplateHealthCheck healthCheck =
+                new TemplateHealthCheck(configuration.getTemplate());
+        environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
     }
 
