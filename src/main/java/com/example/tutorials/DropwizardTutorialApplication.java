@@ -1,5 +1,6 @@
 package com.example.tutorials;
 
+import com.example.tutorials.resources.DropwizardTutorialResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -23,7 +24,11 @@ public class DropwizardTutorialApplication extends Application<DropwizardTutoria
     @Override
     public void run(final DropwizardTutorialConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        final DropwizardTutorialResource resource = new DropwizardTutorialResource(
+                configuration.getTemplate(),
+                configuration.getDefaultName()
+        );
+        environment.jersey().register(resource);
     }
 
 }
